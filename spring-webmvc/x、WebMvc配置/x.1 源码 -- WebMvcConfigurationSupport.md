@@ -1,0 +1,34 @@
+WebMvcConfigurationSupport是springmvc提供的默认配置。
+
+按如下顺序注册HandlerMapping：
+- RequestMappingHandlerMapping：从标注在控制器类上、从标注在控制器方法上的@RequestMapping注解，创建RequestMappingInfo实例。order为0。
+- HandlerMapping：将URL直接映射到view名称。
+- BeanNameUrlHandlerMapping：将URL映射到控制器名称。这是DispatcherServlet使用的HandlerMapping的默认实现。
+- RouterFunctionMapping：
+- HandlerMapping：服务静态资源请求。order为Integer.MAX_VALUE-1。
+- HandlerMapping：转发请求到默认的servlet。order为Integer.MAX_VALUE。
+
+注册了如下的HandlerAdapter：
+- RequestMappingHandlerAdapter：用于用标注的控制器方法处理请求。
+- HttpRequestHandlerAdapter：用HttpRequestHandler处理请求。
+- SimpleControllerHandlerAdapter：用基于接口的控制器处理请求。
+- HandlerFunctionAdapter：用RouterFunction处理请求。
+
+用下面的异常解析器链注册了一个HandlerExceptionResolverComposite：
+- ExceptionHandlerExceptionResolver：用ExceptionHandler标注的方法处理异常。
+- ResponseStatusExceptionResolver：
+- DefaultHandlerExceptionResolver：
+
+注册了AntPathMatcher和UrlPathHelper，被使用在：
+- RequestMappingHandlerMapping
+- HandlerMapping用于视图控制器。
+- HandlerMapping用于服务资源。
+这些bean都能通过PathMatchConfigurer进行配置。
+
+RequestMappingHandlerMapping和ExceptionHandlerExceptionResolver默认情况下通过下面的默认实例进行配置：
+- ContentNegotiationManager
+- DefaultFormattingConversionService
+- org.springframework.validation.beanvalidation.OptionalValidatorFactoryBean
+
+如果classpath下有JSR303的实现包，那么HttpMessageConverter来源于第三方包。
+

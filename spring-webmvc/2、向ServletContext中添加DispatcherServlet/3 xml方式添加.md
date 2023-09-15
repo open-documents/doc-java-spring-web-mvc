@@ -1,0 +1,25 @@
+
+```xml
+<web-app>   
+	<listener>   
+		<listenerclass>org.springframework.web.context.ContextLoaderListener</listener-class>   
+	</listener>
+	<context-param> 
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/app-context.xml</param-value>
+	</context-param>
+	<servlet> 
+		<servlet-name>dispatcherServlet</servlet-name> 
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servletclass> 
+		<init-param>
+			<param-name>contextConfigLocation</param-name> 
+			<param-value></param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dispatcherServlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+</web-app>
+```
